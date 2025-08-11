@@ -1,0 +1,34 @@
+{% extends "base.html" %} {% block title %}home{% endblock %} {% block content
+%}
+<div class="dashboard-header">
+  <h1>Hi {{ current_user.first_name }}, here’s your job dashboard</h1>
+  <a href={{ url_for('views.home') }}>Add New Application</a>
+</div>
+
+<h2>Welcome, {{ current_user.first_name }}!</h2>
+<h3>Your Job Applications</h3>
+
+{% if applications %}
+<ul class="application-list">
+  {% for app in applications %}
+  <p><strong>Date Applied:</strong> {{ app.application_date.strftime('%B %d, %Y') }}</p>
+  <!-- Cancel Icon Button -->
+  <form action="{{ url_for('dashboard.delete_application', id=app.id) }}" method="POST" class="delete-form">
+    <button type="submit" class="cancel-icon" title="Cancel" onclick="return confirm('Remove this application?');">
+      ✖
+    </button>
+  </form>
+  <li>
+    <strong>{{ app.company }}</strong> - {{ app.position }} ({{ app.status }})
+    <br />
+    {{ app.job_type }} | {{ app.location }}<br />
+    {% if app.job_link %}
+    <a href="{{ app.job_link }}" target="_blank">Job Link</a><br />
+    {% endif %}
+    <small>Notes: {{ app.notes or "None" }}</small>
+  </li>
+  {% endfor %}
+</ul>
+{% else %}
+<p>No applications found.</p>
+{% endif %} {% endblock %}

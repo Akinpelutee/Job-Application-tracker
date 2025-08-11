@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+<div class="home-container">
+  <h2 class="greeting">Hi {{ current_user.first_name }}! 👋</h2>
+  <p>Please add your recent applications below.</p>
+  <form method="POST" action="{{ url_for('views.home') }}">
+        <div class="form-group">
+          <label for="company">Company</label>
+          <input type="text" id="company" name="company" required>
+        </div>
+
+        <div class="form-group">
+          <label for="position">Position</label>
+          <input type="text" id="position" name="position" required>
+        </div>
+
+        <div class="form-group">
+          <label for="status">Status</label>
+          <select id="status" name="status" required>
+            <option value="Applied">Applied</option>
+            <option value="Interview">Interview</option>
+            <option value="Offer">Offer</option>
+            <option value="Rejected">Rejected</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="job_type">Job Type</label>
+          <select id="job_type" name="job_type" required>
+            <option value="Full-time">Remote</option>
+            <option value="Full-time">Full-time</option>
+            <option value="Part-time">Part-time</option>
+            <option value="Internship">Internship</option>
+            <option value="Contract">Contract</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="location">Location</label>
+          <input type="text" id="location" name="location">
+        </div>
+
+        <div class="form-group">
+          <label for="link">Job Link (optional)</label>
+          <input type="url" id="link" name="link">
+        </div>
+
+        <div class="form-group">
+          <label for="notes">Notes</label>
+          <textarea id="notes" name="notes" rows="4" placeholder="Any notes about the job..."></textarea>
+        </div>
+
+        <div class="button-container">
+          <button type="submit" class="btn submit-btn">Submit Application</button>
+          <a href="{{ url_for('dashboard.view_dashboard') }}" class="btn">View dashboard</a>
+        </div>
+
+      </form>
+    </div>
+</div>
+{% endblock %}
